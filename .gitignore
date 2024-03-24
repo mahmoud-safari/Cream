@@ -13,3 +13,5 @@ backup.py
 *pdf
 *.bak*
 *.sh
+*log*
+*output*

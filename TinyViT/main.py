@@ -551,7 +551,9 @@ if __name__ == '__main__':
         config_dict['git'] = get_git_info()
         if args.use_wandb:
             wandb_output_path = config.OUTPUT
-            wandb.init(project="TinyViT", config=config_dict,
+            wandb_project_name = config.PROJECT
+            wandb_run_name = config.RUN_NAME
+            wandb.init(project="TinyViT", name=wandb_run_name, config=config_dict,
                        dir=wandb_output_path)
 
     # print git info

@@ -48,7 +48,13 @@ def add_common_args(parser):
                         default=False, help='sync bn')
     parser.add_argument('--use-wandb', action='store_true',
                         default=False, help='use wandb to record log')
+    
 
+    parser.add_argument('--seed', type=int, help="random seed")
+    parser.add_argument('--project', type=str, help='name of wandb project')
+    parser.add_argument('--run-name', type=str, help='name of wandb run')
+
+    
     # distributed training
     parser.add_argument("--local_rank", type=int,
                         help='local rank for DistributedDataParallel')

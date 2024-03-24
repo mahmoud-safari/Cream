@@ -181,6 +181,10 @@ _C.EVAL_MODE = False
 _C.THROUGHPUT_MODE = False
 # local rank for DistributedDataParallel, given by command line argument
 _C.LOCAL_RANK = 0
+# wandb project name
+_C.PROJECT = 'TinyViT'
+# wandb project name
+_C.RUN_NAME = 'train'
 
 
 def _update_config_from_file(config, cfg_file):
@@ -228,6 +232,13 @@ def update_config(config, args):
         config.EVAL_MODE = True
     if args.throughput:
         config.THROUGHPUT_MODE = True
+    
+    if args.seed:
+        config.SEED = args.seed
+    if args.project:
+        config.PROJECT = args.project
+    if args.run_name:
+        config.RUN_NAME = args.run_name
 
     # set local rank for distributed training
     if args.local_rank is None and 'LOCAL_RANK' in os.environ:

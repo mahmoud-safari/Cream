@@ -448,6 +448,29 @@ class BasicLayer(nn.Module):
 
     def extra_repr(self) -> str:
         return f"dim={self.dim}, input_resolution={self.input_resolution}, depth={self.depth}"
+    
+
+class activation_function(nn.Module):
+    def __init__(self, inplace: bool = False):
+        super().__init__()
+
+        self.inplace = inplace
+
+    def forward(self, x):
+
+        # return torch.asinh(x + x * x) - torch.nn.SiLU()(x)
+        # return torch.sigmoid(torch.exp(x) + x**3) * x * x
+        # return torch.minimum(self.beta * torch.exp(x), torch.tensor(0.0)) - torch.nn.LeakyReLU()(x)
+        
+        # return 0.3994 * nn.GELU()(0.4413 * x**2 + 0.5587 * nn.GELU()(x)) + 0.6006 * nn.SiLU()(x)
+        # return 0.4310 * nn.SiLU()(nn.Sigmoid()(nn.SiLU()(x)) * x**2) + 0.5681 * nn.SiLU()(x)
+        # return nn.Sigmoid()(nn.GELU()(nn.SiLU()(x)**2)) * nn.SiLU()(x)
+
+
+        return 0.3994 * nn.GELU()(0.4413 * x**2 + 0.5587 * nn.GELU()(x)) + 0.6006 * nn.SiLU()(x)
+        # return 0.4310 * nn.SiLU()(nn.Sigmoid()(nn.SiLU()(x)) * x**2) + 0.5681 * nn.SiLU()(x)
+        # return nn.Sigmoid()(nn.GELU()(nn.SiLU()(x)**2)) * nn.SiLU()(x)
+
 
 
 class TinyViT(nn.Module):
@@ -470,7 +493,8 @@ class TinyViT(nn.Module):
         self.num_layers = len(depths)
         self.mlp_ratio = mlp_ratio
 
-        activation = nn.GELU
+        # activation = nn.GELU
+        activation = activation_function
 
         self.patch_embed = PatchEmbed(in_chans=in_chans,
                                       embed_dim=embed_dims[0],
