@@ -183,7 +183,7 @@ _C.THROUGHPUT_MODE = False
 _C.LOCAL_RANK = 0
 # wandb project name
 _C.PROJECT = 'TinyViT'
-# wandb project name
+# wandb run name
 _C.RUN_NAME = 'train'
 
 

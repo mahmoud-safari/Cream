@@ -53,7 +53,8 @@ def add_common_args(parser):
     parser.add_argument('--seed', type=int, help="random seed")
     parser.add_argument('--project', type=str, help='name of wandb project')
     parser.add_argument('--run-name', type=str, help='name of wandb run')
-
+    parser.add_argument('--supermuc', action='store_true',
+                        default=False, help='run on supermuc')
     
     # distributed training
     parser.add_argument("--local_rank", type=int,
