@@ -12,6 +12,6 @@ hard_mining/
 backup.py
 *pdf
 *.bak*
-*.sh
+# *.sh
 *log*
 *output*
