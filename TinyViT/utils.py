@@ -55,6 +55,7 @@ def add_common_args(parser):
     parser.add_argument('--run-name', type=str, help='name of wandb run')
     parser.add_argument('--supermuc', action='store_true',
                         default=False, help='run on supermuc')
+    parser.add_argument('--act', default=None, help='activation function')
     
     # distributed training
     parser.add_argument("--local_rank", type=int,

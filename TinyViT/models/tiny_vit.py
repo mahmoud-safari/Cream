@@ -493,8 +493,8 @@ class TinyViT(nn.Module):
         self.num_layers = len(depths)
         self.mlp_ratio = mlp_ratio
 
-        # activation = nn.GELU
-        activation = activation_function
+        activation = nn.GELU
+        # activation = activation_function
 
         self.patch_embed = PatchEmbed(in_chans=in_chans,
                                       embed_dim=embed_dims[0],

@@ -34,6 +34,9 @@ from utils import load_checkpoint, load_pretrained, save_checkpoint,\
     add_common_args,\
     get_git_info
 
+from custom_activations import replace_ac_function, get_activation_function, GoLU
+
+
 from models.remap_layer import RemapLayer
 remap_layer_22kto1k = RemapLayer('./imagenet_1kto22k.txt')
 
@@ -61,6 +64,9 @@ def main(args, config):
 
     logger.info(f"Creating model:{config.MODEL.TYPE}/{config.MODEL.NAME}")
     model = build_model(config)
+    if args.act is not None:
+        replace_ac_function(model, torch.nn.GELU, get_activation_function(args.act))
+    print('model custom activation =', model)
     if not args.only_cpu:
         model.cuda()
 
@@ -170,6 +176,7 @@ def main(args, config):
                 f"val/acc@5": acc5,
                 f"val/loss": loss,
                 "epoch": epoch,
+                "seed": seed,
             })
             wandb.run.summary['epoch'] = epoch
             wandb.run.summary['best_acc@1'] = max_accuracy
@@ -553,7 +560,7 @@ if __name__ == '__main__':
             wandb_output_path = config.OUTPUT
             wandb_project_name = config.PROJECT
             wandb_run_name = config.RUN_NAME
-            wandb.init(project="TinyViT", name=wandb_run_name, config=config_dict,
+            wandb.init(project=wandb_project_name, name=wandb_run_name, config=config_dict,
                        dir=wandb_output_path)
 
     # print git info

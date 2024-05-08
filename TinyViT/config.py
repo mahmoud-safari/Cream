@@ -185,6 +185,8 @@ _C.LOCAL_RANK = 0
 _C.PROJECT = 'TinyViT'
 # wandb run name
 _C.RUN_NAME = 'train'
+# activation function
+_C.ACT = None
 
 
 def _update_config_from_file(config, cfg_file):
@@ -239,6 +241,8 @@ def update_config(config, args):
         config.PROJECT = args.project
     if args.run_name:
         config.RUN_NAME = args.run_name
+    if args.act:
+        config.ACT = args.act
 
     # set local rank for distributed training
     if args.local_rank is None and 'LOCAL_RANK' in os.environ:
