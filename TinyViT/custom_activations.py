@@ -19,7 +19,7 @@ class GoLU_clamp(nn.Module):
 
     def forward(self, x):
 
-        return x * torch.exp(-torch.exp(-torch.clamp(x, max=torch.tensor(10.0), min=-torch.tensor(10.0))))
+        return x * torch.exp(-torch.exp(-torch.clamp(x, max=torch.tensor(10.0).to(x.device), min=-torch.tensor(10.0).to(x.device))))
     
 
 @torch.jit.script
