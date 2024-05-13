@@ -556,6 +556,8 @@ if __name__ == '__main__':
             f.write(config.dump())
         logger.info(f"Full config saved to {path}")
 
+        os.environ["WANDB_MODE"]="offline"
+
         config_dict = dict(config)
         config_dict['git'] = get_git_info()
         if args.use_wandb:
