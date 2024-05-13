@@ -46,6 +46,8 @@ except ImportError:
     wandb = None
 NORM_ITER_LEN = 100
 
+# os.environ["WANDB_MODE"]="offline"
+
 
 def parse_option():
     parser = argparse.ArgumentParser(
