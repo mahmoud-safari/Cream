@@ -179,6 +179,7 @@ def main(args, config):
                 f"val/loss": loss,
                 "epoch": epoch,
                 "seed": seed,
+                "total_time": time.time() - start_time
             })
             wandb.run.summary['epoch'] = epoch
             wandb.run.summary['best_acc@1'] = max_accuracy
@@ -556,7 +557,7 @@ if __name__ == '__main__':
             f.write(config.dump())
         logger.info(f"Full config saved to {path}")
 
-        os.environ["WANDB_MODE"]="offline"
+        # os.environ["WANDB_MODE"]="offline"
 
         config_dict = dict(config)
         config_dict['git'] = get_git_info()
