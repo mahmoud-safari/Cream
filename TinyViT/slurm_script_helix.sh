@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -J vitt-ge # sets the job name. If not specified, the file name will be used as job name
+#SBATCH -J vitt-go # sets the job name. If not specified, the file name will be used as job name
 #SBATCH -o log/%j.%x.%N.out # STDOUT  (the folder log has to be created prior to running or this won't work) /%A.%a.out # %x.%N.%A.%a
 #SBATCH -e log/%j.%x.%N.err # STDERR  (the folder log has to be created prior to running or this won't work) log/%x.%N.%j.out
 #SBATCH -p single # gpu-multi # partition (queue)
@@ -25,7 +25,7 @@ echo "Running job array $SLURM_ARRAY_TASK_ID";
 
 start=`date +%s`
 
-results_folder='vit-exps-helix'
+results_folder='vit-cream-helix'
 
 # torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_{$results_folder}_gelu_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=$results_folder --run-name=gelu
 torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_{$results_folder}_golu_stable_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=$results_folder --run-name=golu_stable --act=GoLU_stable

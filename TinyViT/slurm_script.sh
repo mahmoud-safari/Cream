@@ -3,7 +3,7 @@
 #SBATCH -o log/%j.%x.%N.out # STDOUT  (the folder log has to be created prior to running or this won't work) /%A.%a.out # %x.%N.%A.%a
 #SBATCH -e log/%j.%x.%N.err # STDERR  (the folder log has to be created prior to running or this won't work) log/%x.%N.%j.out
 #SBATCH -p ml_gpu-rtx2080 # alldlc_gpu-rtx2080 # mldlc_gpu-rtx2080 # partition (queue)
-#SBATCH -t 8-00:00:00 # time (D-HH:MM:SS)
+#SBATCH -t 6-00:00:00 # time (D-HH:MM:SS)
 #SBATCH --mail-type=END,FAIL # (receive mails about end and timeouts/crashes of your job)
 #SBATCH --gres=gpu:8
 # SBATCH -c 1 # number of cores
@@ -22,7 +22,7 @@ echo "Running job array $SLURM_ARRAY_TASK_ID";
 
 start=`date +%s`
 
-results_folder='vit-exps-meta'
+results_folder='vit-cream'
 
 # torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_{$results_folder}_gelu_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=$results_folder --run-name=gelu
 torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_{$results_folder}_golu_stable_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=$results_folder --run-name=golu_stable --act=GoLU_stable
