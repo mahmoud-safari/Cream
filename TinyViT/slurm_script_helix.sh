@@ -11,6 +11,16 @@
 #SBATCH -a 1-3
 
 module load devel/cuda
+# export OMP_NUM_THREADS=${SLURM_NTASKS}
+
+
+unset OMP_NUM_THREADS
+unset OMP_PROC_BIND
+unset OMP_PLACES
+
+export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
+export OMP_PROC_BIND=master
+export OMP_PLACES=sockets
 
 
 source ~/.bashrc
