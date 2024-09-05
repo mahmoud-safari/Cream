@@ -433,6 +433,19 @@ class GoLU(nn.Module):
             return GoLUFunction.apply(z, self.alpha, self.beta, self.gamma)
 
 
+class fvit5(nn.Module):
+    
+    def __init__(self, inplace: bool = False):
+        super().__init__()
+
+        self.inplace = inplace
+
+    def forward(self, x):
+
+        return 0.3139 * x*x + 0.5431 * GELU()(x)
+    
+
+            
 def get_activation_function(
     activation: str = 'ReLU'
 ) -> Union[Sigmoid, Tanh, ReLU, Softplus, LeakyReLU, PReLU, ELU, SELU, GELU, SiLU, Mish, GoLU]:
@@ -593,5 +606,16 @@ def get_activation_function(
         return GoLU(
             approximator='stable', requires_grad = [True, True, True], clamp_alpha=[], clamp_beta=[0.02], clamp_gamma=[0.3, 1.0]
         )
+    elif activation == 'fvit5':
+        return fvit5()
     else:
         return ReLU()
+
+
+def replace_ac_function(model, old, new):
+    for n, module in model.named_children():
+        if len(list(module.children())) > 0:
+            replace_ac_function(module, old, new)
+
+        if isinstance(module, old):
+            setattr(model, n, new)
