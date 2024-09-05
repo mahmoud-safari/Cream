@@ -25,7 +25,11 @@ start=`date +%s`
 results_folder='vit-golu-exps'
 
 # torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_{$results_folder}_gelu_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=$results_folder --run-name=gelu
-# torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_{$results_folder}_golu_stable_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=$results_folder --run-name=golu_stable --act=GoLU_stable
+# torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_{$results_folder}_golu_stable_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=$results_folder --run-name=golu --act=GoLU_stable
+# torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_{$results_folder}_relu_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=$results_folder --run-name=relu --act=ReLU
+# torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_{$results_folder}_silu_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=$results_folder --run-name=silu --act=Swish
+# torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_{$results_folder}_elu_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=$results_folder --run-name=elu --act=ELU
+
 torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_{$results_folder}_fvit5_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=$results_folder --run-name=fvit5 --act=fvit5
 
 
@@ -35,34 +39,13 @@ torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-pa
 
 
 
-# torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_tinyvit_gelu_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=vit-exps-meta --run-name=gelu
-# torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_tinyvit_golu_clamp_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=vit-exps-meta --run-name=golu_clamp --act=GoLU_stable
-
-
-# cd TinyViT
-# torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_tinyvit_meta_gelu_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=tinyvit-meta --run-name=gelu
-# torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_tinyvit_meta_golu_clamp_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=tinyvit-meta --run-name=golu_clamp --act=GoLU_stable
-
-
-# torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_meta_gelu_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=TinyViT-META --run-name=gelu
-# torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_meta_vit1_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=TinyViT-META --run-name=vit1
-# torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_meta_vit2_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=TinyViT-META --run-name=vit2
-# torchrun --nproc_per_node 8 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 32 --output ./output_meta_vit3_{$SLURM_ARRAY_TASK_ID} --accumulation-steps=4 --seed=$SLURM_ARRAY_TASK_ID --use-wandb --project=TinyViT-META --run-name=vit3
-
-# cd TinyViT
-# python -m torch.distributed.launch --nproc_per_node 4 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 128 --output ./output_temp # --use-wandb
-# python -m torch.distributed.launch --nproc_per_node 4 main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path /data/datasets/ImageNet/imagenet-pytorch --batch-size 16 --output ./output_temp # --accumulation-steps=4 --use-wandb
-
 # cd AutoFormer
 # python supernet_train.py --data-set=CIFAR10 --gp --change_qk --relative_position --mode retrain --dist-eval --cfg ./experiments/subnet/AutoFormer-T.yaml --batch-size 128 --num_workers 2 --data-path ./data/c10
-
 
 # python supernet_train.py --data-set=CIFAR10 --gp --change_qk --relative_position --mode retrain --dist-eval --cfg ./experiments/subnet/AutoFormer-T.yaml --epochs 10 --warmup-epochs 2 --batch-size 16 --num_workers 2 --data-path ./data/c10
 # python supernet_train.py --data-set=CIFAR10 --gp --change_qk --relative_position --mode retrain --dist-eval --cfg ./experiments/subnet/AutoFormer-T.yaml --batch-size 128 --num_workers 2 --data-path ./data/c10
 
-
 # python supernet_train.py --data-set=CIFAR10 --gp --change_qk --relative_position --mode super --dist-eval --cfg ./experiments/supernet/supernet-T.yaml --epochs 10 --warmup-epochs 2 --batch-size 16 --num_workers 2 --data-path ./data/c10
-
 
 # cd TinyViT
 # python main.py --cfg configs/1k/tiny_vit_21m.yaml --data-path ./data/c10 --batch-size 128 --output ./output
