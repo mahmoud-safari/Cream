@@ -15,3 +15,10 @@ backup.py
 # *.sh
 *log*
 *output*
+*png
+*jpg
+*tmp.py
+
+TinyViT/slurm-2777669.out
+TinyViT/wandb/
+TinyViT/data/

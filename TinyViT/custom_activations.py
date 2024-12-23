@@ -433,7 +433,7 @@ class GoLU(nn.Module):
             return GoLUFunction.apply(z, self.alpha, self.beta, self.gamma)
 
 
-class fvit5(nn.Module):
+class fvit1(nn.Module):
     
     def __init__(self, inplace: bool = False):
         super().__init__()
@@ -442,7 +442,75 @@ class fvit5(nn.Module):
 
     def forward(self, x):
 
-        return 0.3139 * x*x + 0.5431 * GELU()(x)
+        return 0.3399 * x*x + 0.6601 * GELU()(SiLU()(x)*GELU()(x))
+
+class fvit2(nn.Module):
+    
+    def __init__(self, inplace: bool = False):
+        super().__init__()
+
+        self.inplace = inplace
+
+    def forward(self, x):
+
+        return 0.2678 * x*x + 0.7322 * SiLU()(0.2822 * x*x + 0.7178 * GELU()(x))
+
+class fvit3(nn.Module):
+    
+    def __init__(self, inplace: bool = False):
+        super().__init__()
+
+        self.inplace = inplace
+
+    def forward(self, x):
+
+        return 0.2681 * x*x + 0.7319 * GELU()(SiLU()(x)*GELU()(x))
+
+class fvit4(nn.Module):
+    
+    def __init__(self, inplace: bool = False):
+        super().__init__()
+
+        self.inplace = inplace
+
+    def forward(self, x):
+
+        return 0.3222 * x*x + 0.6778 * GELU()(SiLU()(x)*GELU()(x))
+
+class fvit5(nn.Module):
+    
+    def __init__(self, inf=10.0, inplace: bool = False):
+        super().__init__()
+
+        self.inf = torch.tensor(inf)
+
+        self.inplace = inplace
+
+    def forward(self, x):
+
+        # return 0.3139 * x*x + 0.5431 * GELU()(x)
+        return 0.3139 * torch.pow(torch.clamp(x, max=torch.sqrt(self.inf.to(x.device)), min=-torch.sqrt(self.inf.to(x.device))), 2) + 0.5431 * GELU()(x)
+    
+class fvit52(nn.Module):
+    
+    def __init__(self, inf=100.0, inplace: bool = False):
+        super().__init__()
+
+        self.inf = torch.tensor(inf)
+
+        self.inplace = inplace
+
+    def forward(self, x):
+
+        # return 0.3139 * x*x + 0.5431 * GELU()(x)
+        return 0.3139 * torch.pow(torch.clamp(x, max=torch.sqrt(self.inf.to(x.device)), min=-torch.sqrt(self.inf.to(x.device))), 2) + 0.5431 * GELU()(x)
+
+
+class MyGoLU(nn.Module):
+    def __init__(self):
+        super().__init__()
+    def forward(self, x):
+        return x * torch.exp(-torch.exp(-x))
     
 
             
@@ -606,8 +674,20 @@ def get_activation_function(
         return GoLU(
             approximator='stable', requires_grad = [True, True, True], clamp_alpha=[], clamp_beta=[0.02], clamp_gamma=[0.3, 1.0]
         )
+    elif activation == 'fvit1':
+        return fvit1()
+    elif activation == 'fvit2':
+        return fvit2()
+    elif activation == 'fvit3':
+        return fvit3()
+    elif activation == 'fvit4':
+        return fvit4()
     elif activation == 'fvit5':
         return fvit5()
+    elif activation == 'fvit52':
+        return fvit52()
+    elif activation == 'MyGoLU':
+        return MyGoLU()
     else:
         return ReLU()
 

@@ -34,8 +34,9 @@ from utils import load_checkpoint, load_pretrained, save_checkpoint,\
     add_common_args,\
     get_git_info
 
-from custom_activations import replace_ac_function, get_activation_function, GoLU
-
+# from custom_activations import replace_ac_function, get_activation_function, GoLU
+from golu.activation_utils import replace_activation_by_torch_module, get_activation_function
+from golu.golu_cuda_activation import GoLUCUDA
 
 from models.remap_layer import RemapLayer
 remap_layer_22kto1k = RemapLayer('./imagenet_1kto22k.txt')
@@ -67,7 +68,8 @@ def main(args, config):
     logger.info(f"Creating model:{config.MODEL.TYPE}/{config.MODEL.NAME}")
     model = build_model(config)
     if args.act is not None:
-        replace_ac_function(model, torch.nn.GELU, get_activation_function(args.act))
+        # replace_ac_function(model, torch.nn.GELU, get_activation_function(args.act))
+        replace_activation_by_torch_module(model, torch.nn.GELU, args.act)
     print('model custom activation =', model)
     if not args.only_cpu:
         model.cuda()
