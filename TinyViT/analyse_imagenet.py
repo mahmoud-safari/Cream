@@ -111,7 +111,7 @@ import os
 import numpy as np
 
 sampled_images = []  # List to store sampled image data
-num_samples = 1  # Number of samples to pick
+num_samples = 3  # Number of samples to pick
 
 # def random_seed(seed=1337):
 #     np.random.seed(seed)
@@ -126,7 +126,7 @@ num_samples = 1  # Number of samples to pick
 def sample_images_from_tar(tar_path, output_dir=None, num_samples=1):
 
     # random_seed(seed=42)
-    random.seed(0)
+    random.seed(42)
 
     with tarfile.open(tar_path, "r") as train_tar:
         # Get a list of all class tar files
@@ -164,6 +164,8 @@ def sample_images_from_tar(tar_path, output_dir=None, num_samples=1):
         os.makedirs(output_dir, exist_ok=True)
         # class_dir = os.path.join(output_dir, os.path.splitext(class_tar_name)[0])
         # os.makedirs(class_dir, exist_ok=True)
+        print('class_tar_name =', class_tar_name)
+        print('image_name =', image_name)
 
         output_path = os.path.join(output_dir, os.path.basename(image_name))
         with open(output_path, "wb") as f:

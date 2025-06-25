@@ -201,8 +201,8 @@ if __name__ == "__main__":
     # image_path = "/hkfs/work/workspace/scratch/fr_ms2108-data/Cream/TinyViT/pexels-wojciech-kumpicki-1084687-2071882.jpg"
     # image_path = "/hkfs/work/workspace/scratch/fr_ms2108-data/Cream/TinyViT/cat.png"
 
-    input_path = '/hkfs/work/workspace/scratch/fr_ms2108-data/Cream/TinyViT/analyse_images/sampled_images'
-    output_path = '/hkfs/work/workspace/scratch/fr_ms2108-data/Cream/TinyViT/analyse_images'  # Directory to save sampled images
+    input_path = '~/analyse_images/sampled_images'
+    output_path = '~/analyse_images'  # Directory to save sampled images
 
     # Define two activation functions
     activation1 = get_activation_function('MyGoLU')
